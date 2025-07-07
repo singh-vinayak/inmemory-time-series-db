@@ -1,12 +1,30 @@
 # Time Series Store Interview Project
 
-This is a skeleton project for implementing an in-memory time series data store with persistence capabilities.
+## ✅ Current Capabilities
+
+As implemented, the time series store now supports the following production-grade features:
+
+- ✅ In-memory storage with efficient concurrent inserts and queries
+- ✅ Time-based range queries with tag filtering (AND logic)
+- ✅ Durable **write-ahead logging (WAL)** for persistence
+- ✅ **Streaming log replay** at startup for memory efficiency
+- ✅ **Retention policy**: old data (default > 24h) is auto-cleaned from memory
+- ✅ **Log rotation support** to prevent WAL bloat
+- ✅ Support for high-cardinality tag values (e.g., customer_id, request_id)
+- ✅ Bulk CSV ingestion optimized to skip old/stale records and avoid WAL duplication
+- ✅ Well-tested using generated high-volume time series datasets
+
+These capabilities make the implementation suitable for handling high-volume ingest and query workloads while staying within bounded memory.
+
+---
+
+This is a project for implementing an in-memory time series data store with persistence capabilities.
 
 ## Project Structure
 
 - `TimeSeriesStore.java`: Interface defining the store's operations
 - `DataPoint.java`: Class representing a single data point
-- `TimeSeriesStoreImpl.java`: Skeleton implementation to be completed
+- 🧧 `TimeSeriesStoreImpl.java`: provides a thread-safe, in-memory implementation of the TimeSeriesStore interface with support for efficient inserts, time-range queries, tag-based filtering, write-ahead logging (WAL) for persistence, streaming recovery, data retention cleanup, and optional log rotation to handle high-volume time series workloads reliably.
 - `TimeSeriesStoreTest.java`: Basic test cases for the implementation
 - 🧧 `PersistenceManager.java`: Coordinates data replication across multiple nodes to ensure consistency, durability, and high availability in the distributed time series store.
 
@@ -127,20 +145,3 @@ This generates ~15.1 million rows, suitable for:
 - Performance with extremely high volumes
 - System stability under heavy load
 
----
-
-## ✅ Current Capabilities
-
-As implemented, the time series store now supports the following production-grade features:
-
-- ✅ In-memory storage with efficient concurrent inserts and queries
-- ✅ Time-based range queries with tag filtering (AND logic)
-- ✅ Durable **write-ahead logging (WAL)** for persistence
-- ✅ **Streaming log replay** at startup for memory efficiency
-- ✅ **Retention policy**: old data (default > 24h) is auto-cleaned from memory
-- ✅ **Log rotation support** to prevent WAL bloat
-- ✅ Support for high-cardinality tag values (e.g., customer_id, request_id)
-- ✅ Bulk CSV ingestion optimized to skip old/stale records and avoid WAL duplication
-- ✅ Well-tested using generated high-volume time series datasets
-
-These capabilities make the implementation suitable for handling high-volume ingest and query workloads while staying within bounded memory.
