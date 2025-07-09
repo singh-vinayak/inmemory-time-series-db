@@ -32,8 +32,6 @@ public class Main {
                     System.err.println("CSV file is empty.");
                     return;
                 }
-
-                // ✅ Move headers declaration outside the loop
                 String[] headers = headerLine.split(",");
                 if (headers.length < 4) {
                     System.err.println("Insufficient columns in CSV.");
@@ -105,50 +103,50 @@ public class Main {
     }
 
 
-    private static void loadDataFromCsv(TimeSeriesStore store, String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            int lineNum = 0;
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lineNum++;
-                if (line.trim().isEmpty()) continue;
+//    private static void loadDataFromCsv(TimeSeriesStore store, String filePath) {
+//        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+//            int lineNum = 0;
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                lineNum++;
+//                if (line.trim().isEmpty()) continue;
+//
+//                String[] parts = line.split(",", 4);
+//                if (parts.length < 4) {
+//                    System.err.println("Skipping malformed line " + lineNum + ": " + line);
+//                    continue;
+//                }
+//
+//                try {
+//                    long timestamp = Long.parseLong(parts[0].trim());
+//                    String metric = parts[1].trim();
+//                    double value = Double.parseDouble(parts[2].trim());
+//                    Map<String, String> tags = parseTags(parts[3].trim());
+//
+//                    store.insert(timestamp, metric, value, tags);
+//                } catch (Exception e) {
+//                    System.err.println("Error parsing line " + lineNum + ": " + line);
+//                    e.printStackTrace();
+//                }
+//            }
+//            System.out.println("CSV load complete.");
+//        } catch (IOException e) {
+//            System.err.println("Failed to read CSV file: " + filePath);
+//            e.printStackTrace();
+//        }
+//    }
 
-                String[] parts = line.split(",", 4);
-                if (parts.length < 4) {
-                    System.err.println("Skipping malformed line " + lineNum + ": " + line);
-                    continue;
-                }
+    // private static Map<String, String> parseTags(String tagString) {
+    //     Map<String, String> tags = new HashMap<>();
+    //     if (tagString.isEmpty()) return tags;
 
-                try {
-                    long timestamp = Long.parseLong(parts[0].trim());
-                    String metric = parts[1].trim();
-                    double value = Double.parseDouble(parts[2].trim());
-                    Map<String, String> tags = parseTags(parts[3].trim());
-
-                    store.insert(timestamp, metric, value, tags);
-                } catch (Exception e) {
-                    System.err.println("Error parsing line " + lineNum + ": " + line);
-                    e.printStackTrace();
-                }
-            }
-            System.out.println("CSV load complete.");
-        } catch (IOException e) {
-            System.err.println("Failed to read CSV file: " + filePath);
-            e.printStackTrace();
-        }
-    }
-
-    private static Map<String, String> parseTags(String tagString) {
-        Map<String, String> tags = new HashMap<>();
-        if (tagString.isEmpty()) return tags;
-
-        String[] pairs = tagString.split(";");
-        for (String pair : pairs) {
-            String[] kv = pair.split("=", 2);
-            if (kv.length == 2) {
-                tags.put(kv[0].trim(), kv[1].trim());
-            }
-        }
-        return tags;
-    }
+    //     String[] pairs = tagString.split(";");
+    //     for (String pair : pairs) {
+    //         String[] kv = pair.split("=", 2);
+    //         if (kv.length == 2) {
+    //             tags.put(kv[0].trim(), kv[1].trim());
+    //         }
+    //     }
+    //     return tags;
+    // }
 }
