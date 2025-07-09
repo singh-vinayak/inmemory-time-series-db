@@ -54,10 +54,10 @@ public class Main {
 
                     try {
                         long timestamp = Long.parseLong(fields[0]);
-                        if (timestamp < cutoff) {
-                            skippedOld++;
-                            continue;
-                        }
+                        // if (timestamp < cutoff) {
+                        //     skippedOld++;
+                        //     continue;
+                        // }
 
                         String metric = fields[1];
                         double value = Double.parseDouble(fields[2]);
