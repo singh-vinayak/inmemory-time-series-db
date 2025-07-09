@@ -27,7 +27,7 @@ public class TimeSeriesStoreImpl implements TimeSeriesStore {
     @Override
     public boolean insert(long timestamp, String metric, double value, Map<String, String> tags) {
         long cutoff = System.currentTimeMillis() - retentionMillis;
-        if (timestamp < cutoff) return false; // 👈 Skip old records
+        if (timestamp < cutoff) return false;
 
         rwLock.writeLock().lock();
         try {
